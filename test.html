@@ -54,11 +54,10 @@
         'pinch': handlePinch
     };
     hammer_options = {
-        prevent_default: true,
-        no_mouseevents: true,
         preventDefault: true
     };
     var hammertime = Hammer(gesture_element, hammer_options).on(Object.keys(events).join(" "), eventHandler);
+    hammertime.on("dragup dragdown swipeup swipedown", function(ev){ });
         </script>
     </body>
 </html>
