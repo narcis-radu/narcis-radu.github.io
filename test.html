@@ -27,7 +27,7 @@
     var gesture_element = document.getElementById('element');
     var log_element = document.getElementById('log');
     function log(message) {
-        log_element.innerHTML = " > " + message + "\n" + log_element.innerHTML;
+        console.log(message);
     };
     function eventHandler(event) {
         if (event.type in events) events[event.type](event);
@@ -51,8 +51,6 @@
         return Hammer.utils.getAngle(event.gesture.touches[0], event.gesture.touches[1])
     };
     events = {
-        'tap'  : handleTap,
-        'drag' : handleDrag,
         'pinch': handlePinch
     };
     hammer_options = {
