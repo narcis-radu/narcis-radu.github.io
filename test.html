@@ -57,7 +57,7 @@
         preventDefault: true
     };
     
-    Hammer.defaults.behavior.touchAction = 'pan-y';
+    Hammer.defaults.stop_browser_behavior.touchAction = 'pan-y'
     
     var hammertime = Hammer(gesture_element, hammer_options).on(Object.keys(events).join(" "), eventHandler);
     hammertime.on("dragup dragdown swipeup swipedown", function(ev){ });
