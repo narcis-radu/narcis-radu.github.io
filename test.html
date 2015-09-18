@@ -54,9 +54,11 @@
         'pinch': handlePinch
     };
     hammer_options = {
-        preventDefault: true,
-        touchAction:  "pan-y"
+        preventDefault: true
     };
+    
+    Hammer.defaults.behavior.touchAction = 'pan-y';
+    
     var hammertime = Hammer(gesture_element, hammer_options).on(Object.keys(events).join(" "), eventHandler);
     hammertime.on("dragup dragdown swipeup swipedown", function(ev){ });
         </script>
