@@ -19,18 +19,47 @@
         </style>
     </head>
     <body>
+        <div id="log"></div>
         <div id="element"></div>
         <script type="text/avascript" src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/1.1.0/hammer.min.js"></script>
         <script>
-            var element = document.getElementById("element");
-            var options = {
-              preventDefault: true
-            };
-            var hammertime = new Hammer(element, options);
-            hammertime.on("dragup dragdown swipeup swipedown", function(ev){ });
-            hammertime.on("pinch", function() {
-               alert("asd");
-            });
+    var gesture_element = document.getElementById('element');
+    var log_element = document.getElementById('log');
+    function log(message) {
+        log_element.innerHTML = " > " + message + "\n" + log_element.innerHTML;
+    };
+    function eventHandler(event) {
+        if (event.type in events) events[event.type](event);
+        else throw("Help! I don't know what to do with this event.");
+    };
+    function handleTap(event) {
+        log("Tap event handler");
+    }
+    function handleDrag(event) {
+        log("Drag event handler");
+    }
+    function handlePinch(event) {
+        log("Pinch event handler");
+        log("    Length: " + pinchLength(event) + " px.");
+        log("    Angle : " + pinchAngle(event) + " deg.");
+    }
+    function pinchLength(event) {
+        return Hammer.utils.getDistance(event.gesture.touches[0], event.gesture.touches[1])
+    };
+    function pinchAngle(event) {
+        return Hammer.utils.getAngle(event.gesture.touches[0], event.gesture.touches[1])
+    };
+    events = {
+        'tap'  : handleTap,
+        'drag' : handleDrag,
+        'pinch': handlePinch
+    };
+    hammer_options = {
+        prevent_default: true,
+        no_mouseevents: true,
+        preventDefault: true
+    };
+    var hammertime = Hammer(gesture_element, hammer_options).on(Object.keys(events).join(" "), eventHandler);
         </script>
     </body>
 </html>
